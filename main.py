@@ -31,12 +31,12 @@ print("Hello, welcome to my restaurant")
 print("Choose: \n 1. Reserve a table \n 2. Check reservation \n 3. I arrived \n 4. Exit")
 
 start = True
-reserve_table = tables.Reserv_table()
+reserve_table = tables.ReservTable()
 while start:
     try:
         choice = int(input())
     except ValueError:
-        print("There are try choices 1, 2, 3 or 4")
+        choice = None
 
     if choice == 1:
         name = str(input("Vardas: "))
@@ -45,7 +45,7 @@ while start:
             try:
                 table = int(input('1. single, 2. double, 3. family: '))
             except:
-                table = 'nevykelis'
+                table = None
             if table == 1:
                 table = "single"
                 break
@@ -62,7 +62,6 @@ while start:
                 try:
                     time = input("formatas (2023-03-28 12:00), Rezervacijos laikas: ")
                     time = time + ":00"
-                    time = tables.str_to_time(time)
                     break
                 except:
                     print("Blogai ivestas laikas")

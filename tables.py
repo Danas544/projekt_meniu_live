@@ -41,7 +41,7 @@ class Tables:
             self, customer_surname: str
     ) -> Union[Tuple[str, str], str]:
         for info in self.tables.items():
-            if info[1]["busy"] != []:
+            if info[1]["busy"]:
                 for surname in info[1]["busy"]:
                     if surname["surname"] == customer_surname:
                         info_by_surname = surname
@@ -49,12 +49,8 @@ class Tables:
         return "There is no reservation for this last name"
 
     def _table_checking(self, table_name: str, time: "datetime") -> bool:
-        if self.tables[table_name]["busy"] == []:
+        if not self.tables[table_name]["busy"]:
             return True
-        try:
-            time = str_to_time(time)
-        except TypeError:
-            time = time
 
         for times in self.tables[table_name]["busy"]:
             reserved_times = str_to_time(times['time'])
@@ -75,7 +71,7 @@ class Tables:
         return True
 
 
-class Reserv_table(Tables):
+class ReservTable(Tables):
     def __init__(self) -> None:
         super().__init__()
         self.name = None
@@ -83,10 +79,10 @@ class Reserv_table(Tables):
         self.time = None
         self.table_name = None
 
-    def book_table(self, name: str, surname: str, time: 'datetime', table_name: str) -> tuple[bool, str]:
+    def book_table(self, name: str, surname: str, time: str, table_name: str) -> tuple[bool, str]:
         self.name = name
         self.surname = surname
-        self.time = time
+        self.time = str_to_time(time)
         self.table_name = table_name
         free_table = self._table_checking(table_name=self.table_name, time=self.time)
         if free_table != True:
