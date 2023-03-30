@@ -6,8 +6,8 @@ from datetime import datetime, timedelta
 class Tables:
     def __init__(self) -> None:
         self.tables = {
-            "single": {"busy": []},
-            "double": {
+            "Single table": {"busy": []},
+            "Double table": {
                 "busy": [
                     {
                         "name": "Danielius",
@@ -31,7 +31,7 @@ class Tables:
                     },
                 ],
             },
-            "family": {"busy": []},
+            "Family table": {"busy": []},
         }
 
     def get_table_info_by_table_name(self, table_name: str) -> object:
@@ -67,7 +67,6 @@ class Tables:
                         hours=reserved_times.hour, minutes=reserved_times.minute)
                     if skirtumas < timedelta(hours=2):
                         return False
-
         return True
 
 

@@ -47,13 +47,13 @@ while start:
             except:
                 table = None
             if table == 1:
-                table = "single"
+                table = "Single table"
                 break
             elif table == 2:
-                table = "double"
+                table = "Double table"
                 break
             elif table == 3:
-                table = "family"
+                table = "Family table"
                 break
             else:
                 print("Yra tik trys pasirinkimai 1,2 arba 3")
