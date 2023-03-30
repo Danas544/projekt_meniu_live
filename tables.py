@@ -96,7 +96,7 @@ class ReservTable(Tables):
             add_reserv = {
                 "name": self.name,
                 'surname': self.surname,
-                "time": self.time
+                "time": str(self.time)
             }
             busy_copy = self.tables[self.table_name]["busy"].copy()
             busy_copy.append(add_reserv)
