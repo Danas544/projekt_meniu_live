@@ -27,6 +27,7 @@
 import tables
 import meniu
 import time as sleep
+da
 
 print("Hello, welcome to my restaurant")
 print("Choose: \n 1. Reserve a table \n 2. Check reservation \n 3. I arrived \n 4. Exit")
