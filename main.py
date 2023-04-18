@@ -27,92 +27,63 @@
 import tables
 import meniu
 import time as sleep
-da
+from input_funk import choose_input, choose_table, choose_time
 
 print("Hello, welcome to my restaurant")
-print("Choose: \n 1. Reserve a table \n 2. Check reservation \n 3. I arrived \n 4. Exit")
+
 
 start = True
 reserve_table = tables.ReservTable()
 while start:
-    try:
-        choice = int(input())
-    except ValueError:
-        choice = None
-
+    choice = choose_input()
     if choice == 1:
         name = str(input("Vardas: "))
         surname = str(input("Pavardė: "))
-        while True:
-            try:
-                table = int(input('1. single, 2. double, 3. family: '))
-            except:
-                table = None
-            if table == 1:
-                table = "Single table"
-                break
-            elif table == 2:
-                table = "Double table"
-                break
-            elif table == 3:
-                table = "Family table"
-                break
-            else:
-                print("Yra tik trys pasirinkimai 1,2 arba 3")
-        while True:
-            while True:
-                try:
-                    time = input("formatas (2023-03-28 12:00), Rezervacijos laikas: ")
-                    time = time + ":00"
-                    break
-                except:
-                    print("Blogai ivestas laikas")
-                    print("Laiko formatas (2023-03-28 12:00)")
+        table = choose_table()
+        time = choose_time()
 
-
-
-            status, info = reserve_table.book_table(name= name, surname= surname, time= time, table_name= table)
-            if status == False:
-                print(info)
-            else:
-                print(info)
-                sleep.sleep(1)
-                customer_info = reserve_table.get_table_info_by_customer_surname(customer_surname= surname)
-                print(f' Table: {customer_info[1]} \n Name: {customer_info[0]["name"]} \n Surname: {customer_info[0]["surname"]} \n Time: {customer_info[0]["time"]} \n')
-                sleep.sleep(1)
-                print("Choose: \n 1. Reserve a table \n 2. Check reservation \n 3. I arrived \n 4. Exit")
-                break
-
+        status, info = reserve_table.book_table(name= name, surname= surname, time= time, table_name= table)
+        if status == False:
+            print(info)
+        else:
+            print(info)
+            sleep.sleep(1)
+            customer_info = reserve_table.get_table_info_by_customer_surname(customer_surname= surname)
+            print(f' Table: {customer_info[1]} \n Name: {customer_info[0]["name"]} \n Surname: {customer_info[0]["surname"]} \n Time: {customer_info[0]["time"]} \n')
+            sleep.sleep(1)
 
     elif choice == 2:
-        while True:
-            surname = str(input("Pavardė: "))
-            customer_info = reserve_table.get_table_info_by_customer_surname(customer_surname=surname)
-            if type(customer_info) == str:
-                print(customer_info)
-            else:
-                print(f' Table: {customer_info[1]} \n Name: {customer_info[0]["name"]} \n Surname: {customer_info[0]["surname"]} \n Time: {customer_info[0]["time"]} \n')
-                sleep.sleep(1)
-                print("Choose: \n 1. Reserve a table \n 2. Check reservation \n 3. I arrived \n 4. Exit")
-                break
+        surname = str(input("Pavardė: "))
+        customer_info = reserve_table.get_table_info_by_customer_surname(customer_surname=surname)
+        if type(customer_info) == str:
+            print(customer_info)
+            sleep.sleep(1)
+        else:
+            print(f' Table: {customer_info[1]} \n Name: {customer_info[0]["name"]} \n Surname: {customer_info[0]["surname"]} \n Time: {customer_info[0]["time"]} \n')
+            sleep.sleep(1)
+
+
     elif choice == 3:
-        print('I arrived')
-        menu = meniu.Menu()
-        menu_names = menu.get_all_menu_names()
-        print("Choose: \n")
-        for keys,names in menu_names.items():
-            print(f"{keys}. {names}")
+        surname = str(input("Pavardė: "))
+        customer_info = reserve_table.get_table_info_by_customer_surname(customer_surname=surname)
+        if type(customer_info) == str:
+            print(customer_info)
+            sleep.sleep(1)
+        else:
+            print(f'Welcome {customer_info[0]["name"]}')
+            menu = meniu.Menu()
+            menu_names = menu.get_all_menu_names()
+            print("Choose: \n")
+            for keys,names in menu_names.items():
+                print(f"{keys}. {names}")
+            choice = int(input())
 
-        choice = int(input())
 
 
-
-        print("Choose: \n 1. Reserve a table \n 2. Check reservation \n 3. I arrived \n 4. Exit")
     elif choice == 4:
         print("GoodBye")
         start = False
-    else:
-        print("There are try choices 1, 2, 3 or 4")
+
 
 
 
