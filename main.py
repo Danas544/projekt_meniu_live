@@ -25,6 +25,7 @@
 # kvite matosi , patiekalai kiek , kaina , bendra suma , kiek tipsu dave jei dave, bendra suma su tips , kiek dave pinigu jei grynais
 # kiek grazos turime duoti, jei kortele tai viskas zjbys kortele 50 viso 50
 import tables
+import meniu
 import time as sleep
 
 print("Hello, welcome to my restaurant")
@@ -95,7 +96,17 @@ while start:
                 break
     elif choice == 3:
         print('I arrived')
-        start = False
+        menu = meniu.Menu()
+        menu_names = menu.get_all_menu_names()
+        print("Choose: \n")
+        for keys,names in menu_names.items():
+            print(f"{keys}. {names}")
+
+        choice = int(input())
+
+
+
+        print("Choose: \n 1. Reserve a table \n 2. Check reservation \n 3. I arrived \n 4. Exit")
     elif choice == 4:
         print("GoodBye")
         start = False

@@ -4,35 +4,36 @@ from datetime import datetime, timedelta
 
 
 class Tables:
-    def __init__(self) -> None:
-        self.tables = {
-            "Single table": {"busy": []},
-            "Double table": {
-                "busy": [
-                    {
-                        "name": "Danielius",
-                        "surname": "Auks",
-                        "time": "2023-03-27 14:00:00",
-                    },
-                    {
-                        "name": "Danielius",
-                        "surname": "Aukst",
-                        "time": "2023-03-27 20:30:00",
-                    },
-                    {
-                        "name": "Danielius",
-                        "surname": "morka",
-                        "time": "2023-03-27 20:30:00",
-                    },
-                    {
-                        "name": "Danielius",
-                        "surname": "morka",
-                        "time": "2023-03-28 20:00:00",
-                    },
-                ],
-            },
-            "Family table": {"busy": []},
-        }
+    tables = {
+        "Single table": {"busy": []},
+        "Double table": {
+            "busy": [
+                {
+                    "name": "Danielius",
+                    "surname": "Auks",
+                    "time": "2023-03-27 14:00:00",
+                },
+                {
+                    "name": "Danielius",
+                    "surname": "Aukst",
+                    "time": "2023-03-27 20:30:00",
+                },
+                {
+                    "name": "Danielius",
+                    "surname": "morka",
+                    "time": "2023-03-27 20:30:00",
+                },
+                {
+                    "name": "Danielius",
+                    "surname": "morka",
+                    "time": "2023-03-28 20:00:00",
+                },
+            ],
+        },
+        "Family table": {"busy": []},
+    }
+
+
 
     def get_table_info_by_table_name(self, table_name: str) -> object:
         return self.tables[table_name]
