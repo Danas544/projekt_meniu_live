@@ -104,6 +104,10 @@ class Menu:
             x += 1
         return menu_names
 
+    def get_selected_menu(self,choice:str):
+        pass
+
+
 if __name__ == "__main__":
     menu = Menu()
     print(type(menu.get_all_menu_names()))
