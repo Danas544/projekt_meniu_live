@@ -1,14 +1,19 @@
 from tables import str_to_time
 from datetime import datetime
+from typing import Union, Tuple, Dict
+
+
 def choose_input() -> int:
     while True:
-        print("Choose: \n 1. Reserve a table \n 2. Check reservation \n 3. I arrived \n 4. Exit")
+        print(
+            "Choose: \n 1. Reserve a table \n 2. Check reservation \n 3. I arrived \n 4. Exit"
+        )
         try:
             choice = int(input())
         except ValueError:
             print("There are try choices 1, 2, 3 or 4")
             continue
-        if choice not in [1,2,3,4] or choice == str:
+        if choice not in [1, 2, 3, 4] or choice == str:
             print("There are try choices 1, 2, 3 or 4")
             continue
         return choice
@@ -16,8 +21,8 @@ def choose_input() -> int:
 
 def choose_table() -> str:
     while True:
-        table = int(input('1. single, 2. double, 3. family: '))
-        if table not in [1,2,3]:
+        table = int(input("1. single, 2. double, 3. family: "))
+        if table not in [1, 2, 3]:
             print("There are try choices 1, 2, 3")
             continue
         if table == 1:
@@ -27,6 +32,7 @@ def choose_table() -> str:
         elif table == 3:
             table = "Family table"
         return table
+
 
 def choose_time() -> "datetime":
     while True:
@@ -38,3 +44,18 @@ def choose_time() -> "datetime":
             print("Blogai ivestas laikas")
             continue
         return time
+
+
+def choose_menu(options: Dict[int, str]) -> str:
+    options_keys = list(options.keys())
+    message = f"There are only such choices {options_keys}"
+    while True:
+        try:
+            choice = int(input())
+        except ValueError:
+            print(message)
+            continue
+        if choice not in options_keys:
+            print(message)
+            continue
+        return options[choice]

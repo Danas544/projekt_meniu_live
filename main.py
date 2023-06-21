@@ -27,7 +27,12 @@
 import tables
 import meniu
 import time as sleep
-from input_funk import choose_input, choose_table, choose_time
+from input_funk import choose_input, choose_table, choose_time, choose_menu
+from db import Base
+
+# pylint: disable-all
+
+db = Base(db="Reservation", collection="Tables")
 
 print("Hello, welcome to my restaurant")
 
@@ -37,35 +42,46 @@ reserve_table = tables.ReservTable()
 while start:
     choice = choose_input()
     if choice == 1:
-        name = str(input("Vardas: "))
-        surname = str(input("Pavardė: "))
+        name = str(input("Name: "))
+        surname = str(input("Surname: "))
         table = choose_table()
         time = choose_time()
 
-        status, info = reserve_table.book_table(name= name, surname= surname, time= time, table_name= table)
+        status, info = reserve_table.book_table(
+            name=name, surname=surname, time=time, table_name=table
+        )
         if status == False:
             print(info)
         else:
             print(info)
             sleep.sleep(1)
-            customer_info = reserve_table.get_table_info_by_customer_surname(customer_surname= surname)
-            print(f' Table: {customer_info[1]} \n Name: {customer_info[0]["name"]} \n Surname: {customer_info[0]["surname"]} \n Time: {customer_info[0]["time"]} \n')
+            customer_info = reserve_table.get_table_info_by_customer_surname(
+                customer_surname=surname
+            )
+            print(
+                f' Table: {customer_info[0]["Table"]} \n Name: {customer_info[0]["name"]} \n Surname: {customer_info[0]["surname"]} \n Time: {tables.ts_to_time(customer_info[0]["time"])} \n'
+            )
             sleep.sleep(1)
 
     elif choice == 2:
         surname = str(input("Pavardė: "))
-        customer_info = reserve_table.get_table_info_by_customer_surname(customer_surname=surname)
+        customer_info = reserve_table.get_table_info_by_customer_surname(
+            customer_surname=surname
+        )
         if type(customer_info) == str:
             print(customer_info)
             sleep.sleep(1)
         else:
-            print(f' Table: {customer_info[1]} \n Name: {customer_info[0]["name"]} \n Surname: {customer_info[0]["surname"]} \n Time: {customer_info[0]["time"]} \n')
+            print(
+                f' Table: {customer_info[0]["Table"]} \n Name: {customer_info[0]["name"]} \n Surname: {customer_info[0]["surname"]} \n Time: {tables.ts_to_time(customer_info[0]["time"])} \n'
+            )
             sleep.sleep(1)
-
 
     elif choice == 3:
         surname = str(input("Pavardė: "))
-        customer_info = reserve_table.get_table_info_by_customer_surname(customer_surname=surname)
+        customer_info = reserve_table.get_table_info_by_customer_surname(
+            customer_surname=surname
+        )
         if type(customer_info) == str:
             print(customer_info)
             sleep.sleep(1)
@@ -74,23 +90,11 @@ while start:
             menu = meniu.Menu()
             menu_names = menu.get_all_menu_names()
             print("Choose: \n")
-            for keys,names in menu_names.items():
+            for keys, names in menu_names.items():
                 print(f"{keys}. {names}")
-            choice = int(input())
-
-
+            a = menu_names.keys()
+            choice = choose_menu(options=dict(menu_names.items()))
 
     elif choice == 4:
         print("GoodBye")
         start = False
-
-
-
-
-
-
-
-
-
-
-
