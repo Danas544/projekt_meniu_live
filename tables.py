@@ -79,10 +79,10 @@ class ReservTable(Tables):
         self.time = None
         self.table_name = None
 
-    def book_table(self, name: str, surname: str, time: str, table_name: str) -> tuple[bool, str]:
+    def book_table(self, name: str, surname: str, time: "datetime", table_name: str) -> tuple[bool, str]:
         self.name = name
         self.surname = surname
-        self.time = str_to_time(time)
+        self.time = time
         self.table_name = table_name
         free_table = self._table_checking(table_name=self.table_name, time=self.time)
         if free_table != True:
